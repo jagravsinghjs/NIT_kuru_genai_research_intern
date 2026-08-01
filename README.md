@@ -1,1 +1,0 @@
-# NIT_kuru_genai_research_intern
