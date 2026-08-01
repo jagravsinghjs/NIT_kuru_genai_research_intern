@@ -27,4 +27,3 @@ def load_model():
     model.eval()
 
     return tokenizer, model, device
-print("Model working")
