@@ -25,7 +25,7 @@ def generate_text(prompt: str):
     # Convert tokens back to text
     input_length = inputs["input_ids"].shape[-1]
 
-    enerated_ids = outputs[0][input_length:]
+    generated_ids = outputs[0][input_length:]
 
     generated_text = tokenizer.decode(
         generated_ids,
