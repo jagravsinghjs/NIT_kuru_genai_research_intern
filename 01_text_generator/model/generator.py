@@ -14,16 +14,21 @@ def generate_text(prompt: str):
     ).to(device)
 
     # Generate output
-    with torch.no_grad():
+    with torch.inference_mode():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=200
-        )
-
+            max_new_tokens=200,
+            temperature=0.7,
+            top_p=0.9,
+            do_sample=True,
+)
     # Convert tokens back to text
-    generated_text = tokenizer.decode(
-        outputs[0],
-        skip_special_tokens=True
-    )
+    input_length = inputs["input_ids"].shape[-1]
 
+    enerated_ids = outputs[0][input_length:]
+
+    generated_text = tokenizer.decode(
+        generated_ids,
+        skip_special_tokens=True
+)
     return generated_text
