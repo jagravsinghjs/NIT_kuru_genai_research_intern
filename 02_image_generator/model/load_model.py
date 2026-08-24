@@ -1,18 +1,18 @@
-from diffusers import StableDiffusionPipeline
+from diffusers import StableDiffusionXLPipeline
 import torch
 
-MODEL_NAME = "SG161222/Realistic_Vision_V5.1_noVAE"
+MODEL_NAME = "stabilityai/stable-diffusion-xl-base-1.0"
 
 
 def load_model():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    pipe = StableDiffusionPipeline.from_pretrained(
+    pipe = StableDiffusionXLPipeline.from_pretrained(
         MODEL_NAME,
         dtype=torch.float16,
-        safety_checker=None,
+        use_safetensors=True,
+        variant="fp16",
     )
-    pipe = pipe.to(device)
-    pipe.enable_attention_slicing()
+    pipe.enable_sequential_cpu_offload()
 
     return pipe, device
