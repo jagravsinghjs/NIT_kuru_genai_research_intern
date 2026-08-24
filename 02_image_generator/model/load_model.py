@@ -1,7 +1,7 @@
 from diffusers import StableDiffusionPipeline
 import torch
 
-MODEL_NAME = "stable-diffusion-v1-5/stable-diffusion-v1-5"
+MODEL_NAME = "SG161222/Realistic_Vision_V5.1_noVAE"
 
 
 def load_model():
