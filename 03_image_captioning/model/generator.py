@@ -11,7 +11,12 @@ def generate_caption(image_path: str):
     inputs = processor(images=image, return_tensors="pt").to(device)
 
     with torch.inference_mode():
-        output_ids = model.generate(**inputs, max_new_tokens=50)
+        output_ids = model.generate(
+            **inputs,
+            max_new_tokens=50,
+            repetition_penalty=1.5,
+            no_repeat_ngram_size=3,
+        )
 
     caption = processor.decode(output_ids[0], skip_special_tokens=True)
     return caption
