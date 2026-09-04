@@ -1,24 +1,19 @@
-from model.load_model import load_model
 import ollama
+from model.load_model import load_model
 
 
 MODEL_NAME = load_model()
 
 
-def generate_response(messages: list):
-    """
-    Generate a response from Qwen2.5 using the conversation history.
-
-    Args:
-        messages: List of dictionaries in Ollama chat format.
-
-    Returns:
-        Generated assistant response as a string.
-    """
-
+def generate_response(user_input: str):
     response = ollama.chat(
         model=MODEL_NAME,
-        messages=messages,
+        messages=[
+            {
+                "role": "user",
+                "content": user_input,
+            }
+        ],
     )
 
     return response["message"]["content"]
